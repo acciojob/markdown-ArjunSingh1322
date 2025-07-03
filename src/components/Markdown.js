@@ -40,7 +40,7 @@ const Markdown = () => {
         padding: "1rem",
         overflowY: "auto",
       }}>
-        <p>{displayedValue}</p>
+        <span>{displayedValue}</span>
       </div>
     </div>
   );
