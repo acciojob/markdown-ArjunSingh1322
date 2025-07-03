@@ -62,18 +62,23 @@ const Markdown = () => {
   }
 
   useEffect(() => {
-    const parseMarkdown = (input) => {
-      return input
-        .split("\n")
-        .map((line) => {
-          if (line.startsWith("# ")) {
-            return `<h1>${line.slice(2)}</h1>`;
-          } else {
-            return `<p>${line}</p>`;
-          }
-        })
-        .join("");
-    };
+   const parseMarkdown = (input) => {
+  return input
+    .split("\n")
+    .map((line) => {
+      // Convert **bold** to <strong>
+      const boldConverted = line.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+
+      // Convert # Heading to <h1>
+      if (boldConverted.startsWith("# ")) {
+        return `<h1>${boldConverted.slice(2)}</h1>`;
+      } else {
+        return `<p>${boldConverted}</p>`;
+      }
+    })
+    .join("");
+};
+
 
     setDisplayedValue(parseMarkdown(value));
   }, [value]);
