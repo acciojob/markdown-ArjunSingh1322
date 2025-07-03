@@ -51,10 +51,7 @@
 // export default Markdown;
 
 
-
-
 import React, { useState, useEffect } from "react";
-import { marked } from "marked"; // 👈 Import markdown parser
 
 const Markdown = () => {
   let [value, setValue] = useState("");
@@ -65,7 +62,20 @@ const Markdown = () => {
   }
 
   useEffect(() => {
-    setDisplayedValue(value);
+    const parseMarkdown = (input) => {
+      return input
+        .split("\n")
+        .map((line) => {
+          if (line.startsWith("# ")) {
+            return `<h1>${line.slice(2)}</h1>`;
+          } else {
+            return `<p>${line}</p>`;
+          }
+        })
+        .join("");
+    };
+
+    setDisplayedValue(parseMarkdown(value));
   }, [value]);
 
   return (
@@ -91,7 +101,6 @@ const Markdown = () => {
         />
       </div>
 
-      {/* Markdown Preview */}
       <div
         className="preview"
         style={{
@@ -99,7 +108,7 @@ const Markdown = () => {
           padding: "1rem",
           overflowY: "auto",
         }}
-        dangerouslySetInnerHTML={{ __html: marked(displayedValue) }} 
+        dangerouslySetInnerHTML={{ __html: displayedValue }}
       />
     </div>
   );
