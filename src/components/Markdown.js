@@ -13,15 +13,14 @@ const Markdown = () => {
   }, [value]);
 
   return (
-    <div style={{
-      display: "flex",
-      height: "100vh",
-    }}>
-      <div style={{
-        flex: 1,
-        padding: "1rem",
-        borderRight: "1px solid #ccc",
-      }}>
+    <div className="app" style={{ display: "flex", height: "100vh" }}>
+      <div
+        style={{
+          flex: 1,
+          padding: "1rem",
+          borderRight: "1px solid #ccc",
+        }}
+      >
         <textarea
           onChange={handleChange}
           value={value}
@@ -35,11 +34,14 @@ const Markdown = () => {
           }}
         />
       </div>
-      <div style={{
-        flex: 1,
-        padding: "1rem",
-        overflowY: "auto",
-      }}>
+      <div
+        className="preview"
+        style={{
+          flex: 1,
+          padding: "1rem",
+          overflowY: "auto",
+        }}
+      >
         <span>{displayedValue}</span>
       </div>
     </div>
